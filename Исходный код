@@ -1,0 +1,41 @@
+#include <iostream>
+#include <vector>
+#include <cstdlib>
+#include <ctime>
+
+int main() {
+    // Вводим количество бочек N
+    int N;
+    std::cout << "Введите количество бочек N: ";
+    std::cin >> N;
+
+    // Создаем вектор для хранения бочек
+    std::vector<int> meshok(N);
+
+    // Заполняем вектор числами от 1 до N
+    for (int i = 0; i < N; ++i) {
+        meshok[i] = i + 1;
+    }
+
+    // Инициализируем генератор случайных чисел
+    std::srand(std::time(0));
+
+    // Начинаем вытаскивать бочонки
+    std::cout << "Вытаскиваем бочонки:\n";
+
+    while (!meshok.empty()) {
+        // Генерируем случайный индекс для выбора бочонка
+        int randomIndex = std::rand() % meshok.size();
+
+        // Выводим номер вытянутого бочонка
+        std::cout << meshok[randomIndex] << " ";
+
+        // Удаляем вытянутый бочонок из вектора
+        meshok.erase(meshok.begin() + randomIndex);
+    }
+
+    std::cout << "\nВсе бочонки вытянуты!\n";
+
+    return 0;
+}
+
