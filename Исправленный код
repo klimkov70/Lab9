@@ -2,11 +2,22 @@
 #include <vector>
 #include <cstdlib>
 #include <ctime>
+#include <chrono>
 
 // Функция для логирования
 void log(const std::string& message) {
-    // Записываем информацию в консоль
-    std::cout << message << std::endl;
+    // Получаем текущую дату и время
+    auto now = std::chrono::system_clock::now();
+    auto now_t = std::chrono::system_clock::to_time_t(now);
+
+    // Преобразуем время в строку
+    std::string timeString = std::ctime(&now_t);
+
+    // Удаляем символ новой строки из строки времени
+    timeString.erase(timeString.length() - 1);
+
+    // Выводим дату и время, а затем сообщение
+    std::cout << "[" << timeString << "] " << message << std::endl;
 }
 
 int main() {
@@ -14,6 +25,8 @@ int main() {
     int N;
     log("Введите количество бочек N: ");
     std::cin >> N;
+
+    log("Ввод N: " + std::to_string(N));
 
     // Создаем вектор для хранения бочек
     std::vector<int> meshok(N);
@@ -34,7 +47,7 @@ int main() {
         int randomIndex = std::rand() % meshok.size();
 
         // Выводим номер вытянутого бочонка
-        log(std::to_string(meshok[randomIndex]) + " ");
+        log("Вытянутый бочонок: " + std::to_string(meshok[randomIndex]));
 
         // Удаляем вытянутый бочонок из вектора
         meshok.erase(meshok.begin() + randomIndex);
@@ -44,3 +57,4 @@ int main() {
 
     return 0;
 }
+
